@@ -28,7 +28,7 @@ const Banner = ({ pageTitle, pageName, search }) => {
                 data-aos-offset={50}
               >
                 <li className="breadcrumb-item">
-                  <Link href="/">Home</Link>
+                  <Link href="home">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">
                   {pageName ? pageName : pageTitle}

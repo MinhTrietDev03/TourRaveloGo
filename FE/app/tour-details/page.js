@@ -5,29 +5,9 @@ import ReveloLayout from "@/layout/ReveloLayout";
 import Link from "next/link";
 import { useState } from "react";
 import { Accordion } from "react-bootstrap";
+
 const page = () => {
-  const faqItem = [
-    {
-      id: 1,
-      title: "1. What services does your tour and travel agency offer?",
-    },
-    {
-      id: 2,
-      title: " 2. How do I book a tour or travel package?",
-    },
-    {
-      id: 3,
-      title: " 3. What types of tours do you offer?",
-    },
-    {
-      id: 4,
-      title: " 4. Can I customize my travel package?",
-    },
-    {
-      id: 5,
-      title: " 5. Are your tours suitable for families with children?",
-    },
-  ];
+  const faqItem = [];
   const [active, setActive] = useState("collapse0");
 
   const faqItem2 = [
@@ -35,24 +15,30 @@ const page = () => {
       id: 1,
       title: "01_What services does your tour and travel agency offer?",
     },
-    {
-      id: 2,
-      title: " 02_How do I book a tour or travel package?",
-    },
-    {
-      id: 3,
-      title: " 03_What types of tours do you offer?",
-    },
-    {
-      id: 4,
-      title: " 04_Can I customize my travel package?",
-    },
-    {
-      id: 5,
-      title: " 05_Are your tours suitable for families with children?",
-    },
   ];
   const [active2, setActive2] = useState("collapse0");
+
+  // --- THÊM STATE CHO VOUCHER Ở ĐÂY ---
+  const [voucherCode, setVoucherCode] = useState("");
+  const [voucherMessage, setVoucherMessage] = useState({ type: "", text: "" });
+
+  // --- HÀM XỬ LÝ KHI BẤM NÚT APPLY ---
+  const handleApplyVoucher = (e) => {
+    e.preventDefault(); // Ngăn form load lại trang
+    
+    if (!voucherCode.trim()) {
+      setVoucherMessage({ type: "warning", text: "Vui lòng nhập mã voucher!" });
+      return;
+    }
+
+    // Giả lập logic kiểm tra mã (Bạn có thể thay bằng API thật)
+    if (voucherCode.toUpperCase() === "DISCOUNT20") {
+      setVoucherMessage({ type: "success", text: "Áp dụng mã thành công!" });
+    } else {
+      setVoucherMessage({ type: "error", text: "Mã không hợp lệ hoặc đã hết hạn!" });
+    }
+  };
+
   return (
     <ReveloLayout>
       <section className="page-banner-two rel z-1">
@@ -87,6 +73,7 @@ const page = () => {
         </div>
       </section>
       {/* Page Banner End */}
+      
       {/* Tour Gallery start */}
       <div className="tour-gallery">
         <div className="container-fluid">
@@ -142,6 +129,7 @@ const page = () => {
         </div>
       </div>
       {/* Tour Gallery End */}
+      
       {/* Tour Header Area start */}
       <section className="tour-header-area pt-70 rel z-1">
         <div className="container">
@@ -192,6 +180,7 @@ const page = () => {
         </div>
       </section>
       {/* Tour Header Area end */}
+      
       {/* Tour Details Area start */}
       <section className="tour-details-page pb-100">
         <div className="container">
@@ -308,7 +297,6 @@ const page = () => {
                   <b>Yoga</b>
                 </div>
               </div>
-              <h3>Itinerary</h3>
               <Accordion
                 className="accordion-two mt-25 mb-60"
                 defaultActiveKey={active}
@@ -325,23 +313,7 @@ const page = () => {
                   />
                 ))}
               </Accordion>
-              <h3>Frequently Asked Questions</h3>
-              <Accordion
-                className="accordion-one mt-25 mb-60"
-                defaultActiveKey={active2}
-              >
-                {faqItem2.map((data, i) => (
-                  <RaveloAccordion
-                    title={data.title}
-                    key={data.id}
-                    event={`collapse${i}`}
-                    onClick={() =>
-                      setActive(active2 == `collapse${i}` ? "" : `collapse${i}`)
-                    }
-                    active={active2}
-                  />
-                ))}
-              </Accordion>
+              
               <h3>Maps</h3>
               <div className="tour-map mt-30 mb-50">
                 <iframe
@@ -560,68 +532,7 @@ const page = () => {
                 data-aos="fade-up"
                 data-aos-duration={1500}
                 data-aos-offset={50}
-              >
-                <div className="comment-review-wrap">
-                  <div className="comment-ratting-item">
-                    <span className="title">Services</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                  <div className="comment-ratting-item">
-                    <span className="title">Guides</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                  <div className="comment-ratting-item">
-                    <span className="title">Price</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                  <div className="comment-ratting-item">
-                    <span className="title">Safety</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                  <div className="comment-ratting-item">
-                    <span className="title">Foods</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                  <div className="comment-ratting-item">
-                    <span className="title">Hotels</span>
-                    <div className="ratting">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star-half-alt" />
-                    </div>
-                  </div>
-                </div>
+              > 
                 <hr className="mt-30 mb-40" />
                 <h5>Leave Feedback</h5>
                 <div className="row gap-20 mt-20">
@@ -706,79 +617,91 @@ const page = () => {
                       <input type="date" />
                     </div>
                     <hr />
-                    <div className="time py-5">
-                      <b>Time :</b>
-                      <ul className="radio-filter">
-                        <li>
-                          <input
-                            className="form-check-input"
-                            defaultChecked=""
-                            type="radio"
-                            name="time"
-                            id="time1"
-                          />
-                          <label htmlFor="time1">12:00</label>
-                        </li>
-                        <li>
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="time"
-                            id="time2"
-                          />
-                          <label htmlFor="time2">08:00</label>
-                        </li>
-                      </ul>
+                    
+                    <div className="time mb-25 mt-20">
+                      <b>Time</b>
+                      <input type="time" className="form-control" />
                     </div>
+
                     <hr className="mb-25" />
+                    
                     <h6>Tickets:</h6>
                     <ul className="tickets clearfix">
-                      <li>
-                        Adult (18- years) <span className="price">$28.50</span>
-                        <select name="18-" id="18-">
-                          <option value="value1">01</option>
-                          <option value="value1">02</option>
-                          <option value="value1" selected="">
-                            03
-                          </option>
-                        </select>
+                      <li className="d-flex justify-content-between align-items-center mb-10">
+                        <div>
+                          Adult (18- years) <span className="price">$28.50</span>
+                        </div>
+                        <input 
+                          type="number" 
+                          name="18-" 
+                          id="18-" 
+                          min="0"
+                          defaultValue="1"
+                          className="form-control" 
+                          style={{ width: "70px", height: "35px", padding: "0 10px" }}
+                        />
                       </li>
-                      <li>
-                        Adult (18+ years) <span className="price">$50.40</span>
-                        <select name="18+" id="18+">
-                          <option value="value1">01</option>
-                          <option value="value1">02</option>
-                          <option value="value1">03</option>
-                        </select>
+                      <li className="d-flex justify-content-between align-items-center">
+                        <div>
+                          Adult (18+ years) <span className="price">$50.40</span>
+                        </div>
+                        <input 
+                          type="number" 
+                          name="18+" 
+                          id="18+" 
+                          min="0"
+                          defaultValue="1"
+                          className="form-control" 
+                          style={{ width: "70px", height: "35px", padding: "0 10px" }}
+                        />
                       </li>
                     </ul>
-                    <hr className="mb-25" />
-                    <h6>Add Extra:</h6>
-                    <ul className="radio-filter pt-5">
-                      <li>
-                        <input
-                          className="form-check-input"
-                          defaultChecked=""
-                          type="radio"
-                          name="AddExtra"
-                          id="add-extra1"
+
+                    <hr className="mb-25 mt-25" />
+                    
+                    {/* START SỬA CẬP NHẬT VOUCHER */}
+                    <h6>Voucher:</h6>
+                    <div className="voucher-wrapper mt-10 mb-5">
+                      <div className="d-flex align-items-center gap-2">
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          placeholder="Enter voucher code" 
+                          value={voucherCode}
+                          onChange={(e) => setVoucherCode(e.target.value)}
+                          style={{ padding: "10px 15px", height: "45px", flex: 1 }}
                         />
-                        <label htmlFor="add-extra1">
-                          Add service per booking <span>$50</span>
-                        </label>
-                      </li>
-                      <li>
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="AddExtra"
-                          id="add-extra2"
-                        />
-                        <label htmlFor="add-extra2">
-                          Add service per personal <span>$24</span>
-                        </label>
-                      </li>
-                    </ul>
+                        <button 
+                          type="button" 
+                          className="theme-btn bgc-secondary"
+                          onClick={handleApplyVoucher}
+                          style={{ height: "45px", padding: "0 20px", borderRadius: "5px", border: "none", color: "#fff", cursor: "pointer" }}
+                        >
+                          Apply
+                        </button>
+                      </div>
+                      
+                      {/* Khu vực hiển thị thông báo trạng thái */}
+                      <div className="voucher-status mt-10" style={{ minHeight: "20px", fontSize: "14px" }}>
+                        {voucherMessage.type === "success" && (
+                          <span style={{ color: "#28a745" }}>
+                            <i className="far fa-check-circle me-1"></i> {voucherMessage.text}
+                          </span>
+                        )}
+                        {voucherMessage.type === "error" && (
+                          <span style={{ color: "#dc3545" }}>
+                            <i className="far fa-times-circle me-1"></i> {voucherMessage.text}
+                          </span>
+                        )}
+                        {voucherMessage.type === "warning" && (
+                          <span style={{ color: "#ffc107" }}>
+                            <i className="far fa-exclamation-triangle me-1"></i> {voucherMessage.text}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {/* END SỬA CẬP NHẬT VOUCHER */}
+
                     <hr />
                     <h6>
                       Total: <span className="price">$74</span>
@@ -848,6 +771,7 @@ const page = () => {
         </div>
       </section>
       {/* Tour Details Area end */}
+      
       {/* Newsletter Area start */}
       <Subscribe />
       {/* Newsletter Area end */}
