@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: BE
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/ravelo_db
+    username: root
+    password: admin123
